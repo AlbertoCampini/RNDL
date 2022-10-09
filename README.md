@@ -110,20 +110,42 @@ Adaptive Linear Neuron comunemente conosciuta come Adaline è anch’essa un'arc
 
 Si basa sempre sul neurone di McCulloch–Pitts.
 
+## Self-Organizing Map
+Le self-organizing map (**SOM**) sono un tipo di organizzazione di processi di informazione in rete analoghi alle reti neurali artificiali.
 
+Le SOM sono addrestate usando l'apprendimento **non supervisionato** l'idea alla base è quella di dare in input alla rete un training set nel formato $x_1 ... x_n$ dove ogni $x$ è un vettore di pesi che rappresnta il singolo input. 
 
+La rete dato un traning set modificherà il vettore pesi associato ad ogni neurone per fare in modo di riconoscere un determinato gruppo di input e mapparlo. Possiamo dire qundi che una SOM consente di produrre una rappresentazione dei campioni di training in uno spazio a bassa dimensione preservando le proprietà topologiche dello spazio degli ingressi.
 
+La struttura delle SOM è differente dalle reti viste precedentemente. Non abbiamo piu il concetto di peso come sinapsi quindi collegamento tra neuroni qui abbiamo un'architettura piatta dove ogni neurone è collegato ad altri e questo collegaemnto indica semplicemente la vicinaza. Il vettore pesi è assocaito al neurone stesso e rappresenta quale input riconosce.
 
+### Algoritmo di Apprendimento
+L'obiettivo dell'apprendimento nelle self-organizing map è di specializzare parti differenti del reticolo SOM a rispondere similmente a particolari pattern d'ingresso. Questo è in parte motivato da come le informazioni sensoriali visive, uditive o di altro tipo sono gestite da parti separate della corteccia cerebrale nel cervello umano.
 
+I pesi dei neuroni sono inizializzati a numeri casuali piccoli. 
 
-   
-      
-         
-            
-               
-                  
-                     
-                        
-                           
-                              
-                       
+L'addestramento utilizza l'apprendimento competitivo. Quando viene passato un campione di training in ingresso alla rete, viene calcolata la sua distanza euclidea da tutti i vettori dei pesi.  Quindi dato un input $x_i$ cerco qual è il neurone che lo "mappa" meglio. Il neurone col vettore dei pesi più simile all'ingresso è chiamato **Best Matching Unit** (BMU). 
+
+I pesi del BMU e dei neuroni vicini a questo nel reticolo SOM vengono avvicinati al vettore d'ingresso, così facendo la BMU e i suoi vicini si *specializzano* nel riconoscere pattern simili a quello appena riconosciuto. L'intensità dell'avvicinamento decresce nel tempo e in funzione della distanza dei neuroni dal BMU. 
+
+La formula utilizzata per l'aggiornamento dei pesi W di un neurone j è: $$w_j(n+1) = w_j(n)+ \eta(n) h_{j,i}(n)(x-w_j(n))$$
+
+Abbiamo quindi il vettore pesi del neurone j per l'epoca n + 1 come la somma del suo vettore pesi attuale piu la differenza rispetto al suo vettore pesi attuale e l'input x ricevuto questo moltiplicato per due elemnti:
+1. Il **Learning rate** $\eta$ decresce in modo monotono ad ogni nuova epoca per rendere meno impattante le modifiche sul peso dei neuroni.
+2. la funzione $h_{j,i}$ detta **funzione di vicinato**, dipende dalla distanza nel reticolo fra il BMU (i) e il neurone j. Anch'essa decresce monotonicamente quindi con n vicina a 0 prenderemo molti neuroni vicini alla BMU piu si va avanti meno vicini subiranno l'aggioranamento. La BMU ha 1 come valore di $h_{j,i}$.
+
+L'algoritmo di apprendimento ad ogni epoca quindi si compone di due macro fasi
+1. La fase di **competizione** tra neuroni: calcolo la distanza euclidea per definire la BMU
+2. La fase di **collaborazione**: Trovata la BMU aggiorno i pesi di essa e dei neuroni vicini nel reticolo 
+
+### Passi dell'algoritmo
+1. Assegna ai vettori dei pesi valori casuali
+2. Prendi un vettore d'ingresso
+3. Attraversa ogni nodo della mappa
+    1. Usa la distanza euclidea per trovare somiglianze fra il vettore d'ingresso e il vettore dei pesi di ogni singolo nodo della mappa
+    2. Individua il nodo a distanza minore (questo nodo verrà chiamato Best Matching Unit o BMU)
+4. Aggiorna i nodi del vicinato di BMU "tirandoli" più vicino al vettore d'ingresso
+$$w_j(n+1) = w_j(n)+ \eta(n) h_{j,i}(n)(x-w_j(n))$$
+
+### Valutazione delle performance
+
