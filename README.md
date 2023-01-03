@@ -120,9 +120,12 @@ Il Delta Rule è un algoritmo di apprendimento per reti neurali artificiali. Si 
 
 Il Delta Rule utilizza un approccio di gradient descent per l'ottimizzazione dei pesi della rete ADALINE. In pratica, il Delta Rule calcola l'errore $E^{(k)}$ tra l'output desiderato identificato con $d^{(k)}$ e l'output ottenuto dalla rete identificato con $y^{(k)}$, e utilizza questo errore per aggiornare i pesi della rete in modo da minimizzare l'errore. 
 La formula di calcolo delle errore per il delta rule sul kappesimo esempio è la seguente:
-$$ E^{(k)}(w)=\frac{1}{2}(d^{(k)} - y^{(k)})^2 = \frac{1}{2}(d^{(k)}\sum_{j=0}^m X^{(k)}_j w_j)^2 $$
+$$E^{(k)}(w)=\frac{1}{2}(d^{(k)} - y^{(k)})^2 = \frac{1}{2}(d^{(k)}\sum_{j=0}^m X^{(k)}_j w_j)^2$$
+
 L'errore totale che è la somma dei quadrati degli errori per tutti gli esempi è calcolato come:
+
 $$E_{tot}=\sum_{k=1}^N E^{(k)}$$
+
 Questo processo viene ripetuto finché l'errore non raggiunge un livello accettabile o finché non si raggiunge un numero massimo di iterazioni.
 
 In sintesi, il Delta Rule è un algoritmo di apprendimento utilizzato per la formazione di reti neurali adaline, che permette alla rete di imparare una funzione di mappatura tra gli input e gli output attraverso l'apprendimento supervisionato utilizzando un approccio di gradient descent per l'ottimizzazione dei pesi.
@@ -432,7 +435,9 @@ L'addestramento utilizza l'apprendimento competitivo. Quando viene passato un ca
 
 I pesi del BMU e dei neuroni vicini a questo nel reticolo SOM vengono avvicinati al vettore d'ingresso, così facendo la BMU e i suoi vicini si *specializzano* nel riconoscere pattern simili a quello appena riconosciuto. L'intensità dell'avvicinamento decresce nel tempo e in funzione della distanza dei neuroni dal BMU. 
 
-La formula utilizzata per l'aggiornamento dei pesi W di un neurone j è:$$w_j(n+1) = w_j(n)+ \eta(n) h_{j,i}(n)(x-w_j(n))$$
+La formula utilizzata per l'aggiornamento dei pesi W di un neurone j è:
+
+$$w_j(n+1) = w_j(n)+ \eta(n) h_{j,i}(n)(x-w_j(n))$$
 
 Abbiamo quindi il vettore pesi del neurone j per l'epoca n + 1 come la somma del suo vettore pesi attuale piu la differenza rispetto al suo vettore pesi attuale e l'input x ricevuto questo moltiplicato per due elemnti:
 1. Il **Learning rate** $\eta$ decresce in modo monotono ad ogni nuova epoca per rendere meno impattante le modifiche sul peso dei neuroni.
@@ -690,6 +695,7 @@ Questa informazione è modulata dai gates citati in precedenza che vanno ad inte
 ### Forget gate
 Ci dice quale informazione eliminare dalla cella al tempo t per fare questo prende in input l'output della LSTM all'istante t-1 quindi lo storico e lo stimolo $x_t$ quindi la parola che stiamo presentando. Oltre a questo ci sommiamo un bias. 
 Il forget gate impara **da solo** ad assegnare i pesi per ottenere un vettore con valori  tra 1 e 0 con la seguente formula:
+
 $$f_t = \sigma(W_f[h_{t-1},x_t]+b_f)$$
 Possiamo immaginarci che le informazioni apprese con peso 0 andranno dimenticate mentre quelle con maggiore di 0 saranno propagate verso la cella successiva per fare questo moltiplica elemento per elemento di $C_{t-1}$ dicendoci quindi se tenerlo o meno.
 
@@ -702,7 +708,9 @@ A questo punto va a calcolare un vettore pesi compresi tra 0 e 1 in maniera auto
 
 Per fare questo viene calcolato un **new candidate cell state** che è calcolato in modo analogo. A questo punto input gate moltiplica il vettore pesi ottenuto con il new candidate cell state e quello che otteniamo viene sommato al cell state corrente. 
 In modo formale abbiamo a che:
+
 $$i_t = \sigma(W_i[h_{t-1},x_t]+b_i)$$
+
 $$C_t = Thanh(W_C[h_{t-1},x_t]+b_C)$$
 
 Arrivati a questo punto è possibile calcolare il nuovo cell state complessivo della LSTM al tempo t è dato da:
@@ -710,7 +718,7 @@ Arrivati a questo punto è possibile calcolare il nuovo cell state complessivo d
  $$C_t=f_t * C_{t-1} + i_t * C_t$$
 
 ### Output gate
-Questo particolare gate non agisce sul cell state ma va a definire l'output della cella LSTM al tempo t che verrà utilizzato dai gate della LSTM al tempo t ￼+ 1. Per fare questo utilizza una formula molto simile a quelle viste in precedenza e una volta calcolato un vettore di 1 e 0 viene moltiplicato per il Cell state corrente per capire quale parte propagare come output della LSTM 
+Questo particolare gate non agisce sul cell state ma va a definire l'output della cella LSTM al tempo t che verrà utilizzato dai gate della LSTM al tempo t + 1. Per fare questo utilizza una formula molto simile a quelle viste in precedenza e una volta calcolato un vettore di 1 e 0 viene moltiplicato per il Cell state corrente per capire quale parte propagare come output della LSTM 
 
 $$o_t = \sigma(W_o[h_{t-1},x_t]+b_o)$$
 
@@ -756,7 +764,9 @@ Facendo uno zoom ancora maggiore sull' encoder possiamo vedere ancora qualcosa q
 Notiamo innanzi tutto alcuni collegamenti dette connessioni residuali che porta parte degli input al di là dei layer come il self attention o feed forward. 
 Oltre a queste connessioni abbiamo  il **layerNorm** che funge da collante tra i due layer descritti in precedenza.
 Il layer normalization prende come input i token processati dal self attention layer e l'embedding delle parole portate su dalla connessione residuale  e a questo punto esegue la normalizzazione della somma tra vettori applicando la formula seguente:
+
 $$y=\frac{x-E[x]}{\sqrt{Var[x]+\epsilon}}*\gamma + \beta$$
+
 Dove ha come obiettivo di gestire bene la discesa nel gradiente durate la back propagation evitando i problemi noti.
 
 ![alt text](https://github.com/AlbertoCampini/RNDL/blob/main/assets/IMG_1.png?raw=true)
@@ -810,6 +820,7 @@ Tra le due quella più esplorata è il pruning unstructured la secondo invece è
 ### Regolarizzazione
 È il metodo principale che approfondiremo per fare il pruning. 
 Partiamo da un assunto cioè: durante l'addestramento di ogni modello neurale definiamo una loss che nell'ambito dell'addestramento deve essere minimizzata. La loss è una funzione più o meno complessa dei parlamentari della rete. L'idea è quella di aggiungere un elemento alla funzione definito come $\lambda F(\theta)$ che anch'esso è in funzione dei pesi modulato da $\lambda$ detto coefficiente di regolarizzazione. Ottenendo la formula generica di loss come:
+
 $$ L(\theta) = L(\theta)$ + \lambda F(\theta)$$
 
 La funzione $F(\theta)$ può essere definita in due modi:
@@ -824,6 +835,7 @@ $$S(y,w_i) = \sum^c_{k=1} a_k |\frac{\partial y_k}{\partial w_i}|$$
 Questa quantità la andiamo a fare 1-S per riuscire a lavorare sulla insensitivity, questa quantità deve essere anche limitata tra 0 e la sensitivity massima questa quantità è stata aggiunta all'update dei pesi così facendo quando la insensitivity è a 0 non agisce sull' update perché il peso è rilevante mentre quando è prossima ad uno prende parte alla decrescita del peso che stiamo aggiornando.
 
 Successivamente l'idea su cui si sono focalizzati è modificare un po' il ragionamento iniziale e non valutare più l'importanza del peso data la vario e dell output di un neurone k ma di usarla in base alla variazione della funzione di loss trasformando la formula come segue:
+
 $$S(y,w_i) = \sum^c_{k=1} a_k |\frac{\partial L}{\partial y_{L,k}}||\frac{\partial y_{L,k}}{\partial w_i}|$$
 
 - Irrelevance: un approccio differente è quello di partire dall'intuizione sopra citata ma utilizzare il concetto di irrelevance:
