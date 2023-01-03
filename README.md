@@ -120,7 +120,7 @@ Il Delta Rule è un algoritmo di apprendimento per reti neurali artificiali. Si 
 
 Il Delta Rule utilizza un approccio di gradient descent per l'ottimizzazione dei pesi della rete ADALINE. In pratica, il Delta Rule calcola l'errore $E^{(k)}$ tra l'output desiderato identificato con $d^{(k)}$ e l'output ottenuto dalla rete identificato con $y^{(k)}$, e utilizza questo errore per aggiornare i pesi della rete in modo da minimizzare l'errore. 
 La formula di calcolo delle errore per il delta rule sul kappesimo esempio è la seguente:
-$$ E^{(k)}(w)=\frac{1}{2}(d^{(k)} - y^{(k)})^2 = ￼\frac{1}{2}(d^{(k)}\sum_{j=0}^m X^{(k)}_j w_j)^2 $$
+$$ E^{(k)}(w)=\frac{1}{2}(d^{(k)} - y^{(k)})^2 = \frac{1}{2}(d^{(k)}\sum_{j=0}^m X^{(k)}_j w_j)^2 $$
 L'errore totale che è la somma dei quadrati degli errori per tutti gli esempi è calcolato come:
 $$E_{tot}=\sum_{k=1}^N E^{(k)}$$
 Questo processo viene ripetuto finché l'errore non raggiunge un livello accettabile o finché non si raggiunge un numero massimo di iterazioni.
@@ -135,13 +135,13 @@ Il MLP è stato anche uno dei primi esempi di rete neurale a più strati, e ha s
 ### Architettura
 Il Multi Layer Perceptron (MLP) è una rete neurale feedforward a più strati che utilizza l'apprendimento supervisionato per imparare una funzione di mappatura tra gli input e gli output. È composta da uno o più strati di neuroni artificiali, ciascuno dei quali è formato da un insieme di pesi e bias che vengono aggiornati durante il processo di apprendimento.
 
-![Image](assets/IMG_22.png)
+![alt text](https://github.com/AlbertoCampini/RNDL/blob/main/assets/IMG_22.png?raw=true)
 
 Il MLP è stato successivamente utilizzato in diversi campi, come il riconoscimento delle parole, il riconoscimento dei pattern, il processamento del linguaggio naturale e il machine learning in generale. In pratica tutti i problemi che **non sono linearmente separabili** dove il perceptron falliva.
 È ancora ampiamente utilizzato oggi per risolvere molti problemi di machine learning, in particolare nei casi in cui è necessario modellare relazioni non lineari tra gli input e gli output.
 
 A differenza di Adeline i neuroni all'Interno di MLP hanno una cosiddetta funzione di attivazione o trasferimento $\varphi$ detta **sigmoide** definita come:
-$$\varphi(V_j)=￼\frac{1}{1+e^{-av_j}}$$ con a > 0 
+$$\varphi(V_j)=\frac{1}{1+e^{-av_j}}$$ con a > 0 
 Questa funzione è molto importante perché è continua e derivabile e dato che l algoritmo di apprendimento back propagation si basa proprio sulle derivate 
 
 ### Back Propagrtion 
@@ -152,9 +152,9 @@ Lo scopo finale a prescindere rimane quello di aggiornare il peso della sinapsi 
 
 L'algoritmo si basa sul ripetere più volte i 2 seguenti step:
 1. **Forward pass** consiste nel posizionare sul livello di ingresso i valori che rappresentano ogni esempio del nostro training set e sulla base di quello propagheremo in avanti fino a trovare un valore di uscita, inizialmente questo processo verrà fatto con pesi **casuali**
-2. **backward pass** consiste nel correggere ogni peso in base all output della rete questo avviene calcolando il gradiente locale 
-
-![Image](assets/IMG_25.png)
+2. **backward pass** consiste nel correggere ogni peso in base all output della rete questo avviene calcolando il gradiente locale
+3.  
+![alt text](https://github.com/AlbertoCampini/RNDL/blob/main/assets/IMG_25.png?raw=true)
 
 La funzione di errore che prendiamo in considerazione è **Total Mean Squared Error**, questa può variare in base al problema è all'architettura. Gli step per calcolare l'errore totale sono i seguenti:
 - Ottenere l'errore sul neurone j come $e_j(n) = d _j(n) - y_j(n)$
@@ -193,7 +193,8 @@ $$\Delta W_{ji} = \eta (d_j - y_j) \varphi^{'}(v_j) y_i$$
 Dove $\varphi^{'}$ indica la derivata prima della funzione di attivazione del neurone
 
 - Un neurone hidden il calcolo è più complesso questo perché non affacciandosi all'uscita non può vedere il target 
- ![Image](assets/IMG_24.png)
+![alt text](https://github.com/AlbertoCampini/RNDL/blob/main/assets/IMG_24.png?raw=true)
+
 Quindi scorporiamo sempre il nostro segnale di errore come 
 $$\delta_j = -\frac{\partial E}{\partial y_j}\frac{\partial y_j}{\partial v_{j}}$$
 Come prima sappiamo calcolare $\frac{\partial y_j}{\partial v_{j}}$ che è:
@@ -231,14 +232,14 @@ Queste reti neurali sono caratterizzate dalle funzioni radiale, essa è una funz
 
 All'interno della rete neurale queste funzioni vanno a sostituire le funzioni di trasferimento sigmoidali.
 Questo permette di valutare la vicinanza tra il punto p e il centro.
-![Image](assets/IMG_17.png)
+![alt text](https://github.com/AlbertoCampini/RNDL/blob/main/assets/IMG_17.png?raw=true)
 
 ### Architettura 
 Solitamente queste reti neurali contengono 1 solo livello nascosto e all'interno del livello nascosto inserire queste funzioni all'interno dei neuroni a livello hidden.
 I neuroni di uscita invece hanno uscita lineare per fare questa fa una somma pesata del livello nascosto, i pesi con cui viene effettuata questa operazione sono i pesi W. 
 
 Quindi a differenza del multi layer perceptron in apparenza abbiamo solo un livello di pesi quelli tra il livello hidden e il livello di uscita.
-![Image](assets/IMG_18.png)
+![alt text](https://github.com/AlbertoCampini/RNDL/blob/main/assets/IMG_18.png?raw=true)
 
 L'output per il neurone y viene valutato come somma pesata della funzione $\phi$ che ha come argomento la norma della distanza tra il nostro esempio x e il **centro della funzione** chiamato $t_i$.
 
@@ -262,7 +263,7 @@ Si focalizza su insegnare alla rete come individuare:
 Dove dMax indica la distanza massima tra due centri definiti in precedenza e dN è il numero dei centri. La funzione di attivazione generica diventa $$\varphi(||x-t_i||^2)=exp(-\frac{m_i}{d_{max}^2}||x-t_i||^2)$$
 
 Quello che chiedo per cercare i pesi w non è trovare l'uguaglianza con il desiderato, ma trovare qualcosa di simile al mio d questo mi permette di ridurre anche il numero delle colonne quindi non avere una matrice quadrata N x N ma N x m-1 così da non avere un neurone per ogni esempio ma solo m1 questo mi permette di ridurre la dimensione e soprattutto di non fare overfitting sul Training set.
-![Image](assets/IMG_19.png)
+![alt text](https://github.com/AlbertoCampini/RNDL/blob/main/assets/IMG_19.png?raw=true)
 
 Quello che capita a questo punto è che non posso più fare è calcolare l'inverso della mia matrice perché non è più una matrice quadrata quindi partendo da:
 $$\Phi w = d$$
@@ -324,7 +325,7 @@ Questi passi vengono ripetuti più volte cambiando i parametri in input
 Similmente a quanto visto per RBF anche in questo caso non possiamo eseguire l algoritmo con matrici singolari o quasi singolari.
 
 ### Regolarizzazione
-Il processo di regolarizzazione permette di allontanare una matrice dalla situazione di quasi singolarità. Questo grazie ad un parametro $\lambda$ scelto che va a sommarsi alla matrice trasporta moltiplicata per la matrice prima dell'￼inversione rendendo di fatto la formula:
+Il processo di regolarizzazione permette di allontanare una matrice dalla situazione di quasi singolarità. Questo grazie ad un parametro $\lambda$ scelto che va a sommarsi alla matrice trasporta moltiplicata per la matrice prima dell'inversione rendendo di fatto la formula:
 $$\beta =(H^TH+\lambda I)^{-1}H^T T$$
 
 Questo $\lambda$ diventa a tutti gli effetti un iper parametro della rete.
@@ -358,30 +359,30 @@ Con la relu risolviamo questo problema
 
 ## Convolutional Neural Network
 Le caratteristiche principali della CNN sono **local processing** ogni neurone non è più connesso a. Tutti gli altri a solo ad una parte, questo provoca una riduzione enorme delle connessioni necessarie e quindi delle operazioni da eseguire per addestrare la rete.
-![Image](assets/IMG_11.png)
+![alt text](https://github.com/AlbertoCampini/RNDL/blob/main/assets/IMG_11.png?raw=true)
 
 L'altra caratteristica è che le **connessioni sono condivise** 
-![Image](assets/IMG_10.png)
+![alt text](https://github.com/AlbertoCampini/RNDL/blob/main/assets/IMG_10.png?raw=true)
 
 Da questo viene definito il concetto di **Filtro** o kernel che è il ventaglio di pesi con i quali il neurone guarda ad una porzione in qualche modo definita del livello precedente 
 
 Possiamo imparare allo stesso tempo diversi filtri convoluzionali allo stesso tempo
-![Image](assets/IMG_12.png)
+![alt text](https://github.com/AlbertoCampini/RNDL/blob/main/assets/IMG_12.png?raw=true)
 ogni livello processa l'input con pesi diversi dai layer prima usando sempre propensi uguali per lo stesso livello ma diverso dagli altri livelli questi livelli vengono detti **features map**
 
 Una rete convoluzionale è pensata per il processing di immagini perché si presta molto bene al processing locale. Oltre a questa applicazione si possono usare per speech recognition.
 
 ### Architettura 
 L'architettura di una CNN è composta da una serie di livelli in cui il primo livello è il nostro oggetto di studio, ad esempio un immagine, gli ultimi livelli sono completamente connessi e operano come un multilayer perceptron che classifica. I livelli in mezzo hanno connessioni locale e pesi condivisi che possiamo immagina re come il processing dell input per il nostro classificatore finale.
-![Image](assets/IMG_13.png)
+![alt text](https://github.com/AlbertoCampini/RNDL/blob/main/assets/IMG_13.png?raw=true)
 La grande rivoluzione è che il processing non è svolto da un umano ma dalla rete convoluzionale
 Più sono vicino al l'input più le caratteristiche riconosciute sono elementari, più sono vicino al classificatore più cose complesse
 
 ### Convoluzione
 Il livello convoluzione equivale ad applicare un filtro alla nostra immagine, il primo livello convoluzionale è composto da una serie di Neuroni che sono connessi parzialmente al nostro input. Tra i due livelli abbiamo una sorta di maschera che pesa la porzione di input che sta analizzando facendo il prodotto scalare tra input e maschera 
-![Image](assets/IMG_14.png)
+![alt text](https://github.com/AlbertoCampini/RNDL/blob/main/assets/IMG_14.png?raw=true)
 
-![Image](assets/IMG_15.png)
+![alt text](https://github.com/AlbertoCampini/RNDL/blob/main/assets/IMG_15.png?raw=true)
  
  Per i neuroni laterali quindi per evitare di uscire fuori si usa del padding di solito 0
  
@@ -390,7 +391,7 @@ Il livello di pooling si pone dopo il livello convolutional e aggrega l'informaz
 - **Max pooling** prendo il valore massimo tra quelli che sto osservando 
 - **Average pooling** prendo la media dei valori che sto osservando 
 Il livello di pooling non ha parametri da imparare 
-![Image](assets/IMG_16.png)
+![alt text](https://github.com/AlbertoCampini/RNDL/blob/main/assets/IMG_16.png?raw=true)
 Quindi sostanzialmente vado a ridurre la dimensione della rete  
 
 ### Funzione di attivazione
@@ -399,7 +400,7 @@ Nel punto 0 la relu non è derivabile però viene gestita associandola ad una de
 
 ### Funzione Soft-Max e Cross entropy
 Il livello di uscito di una CNN nella sua applicazione più classica ovvero la classificazione è costituito da neuroni che hanno funzione di attivazione detta Soft Max definita come:
-$$z_k = f(v_k)=\frac{e^{v_k}}{\sum_{c=1...s￼^{e^{v_c}}}}$$
+$$z_k = f(v_k)=\frac{e^{v_k}}{\sum_{c=1...s^{e^{v_c}}}}$$
 
 La cross entropy invece permette di determinare quanto è buono il risultato q rispetto a quello che volevo ottenere p con la formula definita come segue:
 $$H(p,q)=-\sum_v p(v) * log(q(v))$$
@@ -462,7 +463,7 @@ Queste reti sono ritenute molte importanti perché nelle neuroscience è studiat
 ### Architettura 
 Le reti di Hopfiled sono composte da N neuroni connessi tra loro. Ogni neurone j è connesso con tutti gli altri neuroni presenti nella rete, tranne se stesso. Ogni neurone può assumere solamente 2 valori {1,-1}. Per calcolare l'attivazione di ogni sogno lo neurone j come la somma pesata degli output di tutti i neuroni connessi con j (quindi tutti gli altri tranne se stesso).
 
-![Image](assets/IMG_21.png)
+![alt text](https://github.com/AlbertoCampini/RNDL/blob/main/assets/IMG_21.png?raw=true)
 
 
 ### Funzione di attivazione 
@@ -561,10 +562,10 @@ La terza e ultima idea è la gestione **dell'energia**. Nelle reti di Hopfield l
 L'architetta si può riassumere quindi come la separazione in due livelli della nostra rete
 1. Neuroni visible che si comportano come una rete di Hopfield classica
 2. Neuroni hidden 
-![Image](assets/IMG_26.png)
+![alt text](https://github.com/AlbertoCampini/RNDL/blob/main/assets/IMG_26.png?raw=true)
 
 Nella versione restricted delle BM Ogni neurone hidden è connesso con ogni neurone visibile. La particolarità è che non vi sono connessioni tra neuroni hidden e nemmeno tra neuroni visibile. Sostanzialmente abbiamo connessioni dirette tra neuroni di livelli diversi.
-Ogni neurone può assumere 2 stati possibili che chiamiamo ￼$s_i$, lo stato è compreso nell'insieme {0,1}.
+Ogni neurone può assumere 2 stati possibili che chiamiamo $s_i$, lo stato è compreso nell'insieme {0,1}.
 
 ### Funzione di Attivazione 
 Come detto la funzione di attivazione è stocastica 
@@ -592,7 +593,7 @@ A partire dalle probabilità attraverso il **sampling** attribuiamo effettivamen
 A questo punto abbiamo ottenuto un'attivazione a livello hidden. Noi vogliamo capire questo livello hidden cosa ci "forza" a livello visible. Quindi lo calcoliamo con la stessa formula.
 
 Ora che abbiamo ottenuto l'output del livello visible una volta fatto **sampling** ri-calcoliamo l'attivazione del livello hidden e una volta fatto ciò iniziamo ad analizzare quello che abbiamo.
-![Image](assets/IMG_27.png)
+![alt text](https://github.com/AlbertoCampini/RNDL/blob/main/assets/IMG_27.png?raw=true)
 L'idea in definitiva è quella di evitare che la reti divaghi verso un qualcosa che non voglio
 
 ## Deep Restricted Boltzmann Machine 
@@ -651,7 +652,7 @@ NB $W_aa$ è costanti in tutti i passaggi e sono definiti dall'architettura dell
 
 $y^{< i+1 >}=g(W_{ay} a^{< i >} + b_y)$
 
-![Image](assets/IMG_28.png)
+![alt text](https://github.com/AlbertoCampini/RNDL/blob/main/assets/IMG_28.png?raw=true)
 
 
 ### Addestramento
@@ -678,7 +679,7 @@ Le LSTM evolvono rispetto alle RNN classiche andando a sostituire le unità hidd
 - Output gate
 Ogni gate dice alla nostra cella LSTM dice quale informazione che proviene dal passato quindi al tempo t-1 debba essere preservata al tempo t, quale debba essere dimenticata e quale deve essere aggiunta. I gate cooperano per rendere efficienti le LSTM e risolvere i problemi di vanishing o exploding gradient. 
 
-![Image](assets/IMG_8.png)
+![alt text](https://github.com/AlbertoCampini/RNDL/blob/main/assets/IMG_8.png?raw=true)
 
 In definitiva nelle LSTM ci dimentichiamo dei livelli hidden visti fino ad ora è li sostituiamo con le celle e i gate.
 
@@ -711,14 +712,14 @@ Arrivati a questo punto è possibile calcolare il nuovo cell state complessivo d
 ### Output gate
 Questo particolare gate non agisce sul cell state ma va a definire l'output della cella LSTM al tempo t che verrà utilizzato dai gate della LSTM al tempo t ￼+ 1. Per fare questo utilizza una formula molto simile a quelle viste in precedenza e una volta calcolato un vettore di 1 e 0 viene moltiplicato per il Cell state corrente per capire quale parte propagare come output della LSTM 
 
-$$o_t = \sigma(W_o[h_{t-1},x_t￼]+b_o)$$
+$$o_t = \sigma(W_o[h_{t-1},x_t]+b_o)$$
 
 Questo conclude come funziona una LSTM, non è finita qui. Noi vorremmo aggregare più LSTM per creare delle deep RNN per fare questo ogni immaginandoci di avere n LSTM impilate avremo che ogni time step della nostra sequenza verrà processata dalla prima LSTM che una volta terminata manderà il suo output $h_t$ verso la LSTM superiore così è così via fino all'ultima. Da notare che ogni LSTM ha paramenti differenti che la rete deve imparare quindi la complessità cresce linearmente con il numero di RNN impilate 
 
 ### Gated Recurrent Units
 Un tentativo di semplificare le LSTM sono state introdotte le GRU, un tentativo di snellire la rete. La differenza principale è che ogni "blocchetto" non ha più 2 output ma uno solo cioè il cell state.
 
-![Image](assets/IMG_9.png)
+![alt text](https://github.com/AlbertoCampini/RNDL/blob/main/assets/IMG_9.png?raw=true)
 
 
 ### Encoder Decoder
@@ -732,7 +733,7 @@ Inizialmente il transformer era stato immagino a 6 livelli di encoder e 6 di dec
 1. Ciò che arriva dall'encoder 
 2. Ciò che arriva del decoder sottostante
 
-![Image](assets/IMG_2.png)
+![alt text](https://github.com/AlbertoCampini/RNDL/blob/main/assets/IMG_2.png?raw=true)
 
 ### Encoder
 Facendo uno zoom vediamo che all'interno di ogni layer dell' encoder troviamo due sotto layer (dall'alto verso il basso):
@@ -758,7 +759,7 @@ Il layer normalization prende come input i token processati dal self attention l
 $$y=\frac{x-E[x]}{\sqrt{Var[x]+\epsilon}}*\gamma + \beta$$
 Dove ha come obiettivo di gestire bene la discesa nel gradiente durate la back propagation evitando i problemi noti.
 
-![Image](assets/IMG_1.png)
+![alt text](https://github.com/AlbertoCampini/RNDL/blob/main/assets/IMG_1.png?raw=true)
 
 ### self attention
 Fino ad adesso abbiamo parlato della self attention come in layer atomico a se stante, ma non è così, anch'esso esegue una serie di step per compiere il suo lavoro.
@@ -770,13 +771,13 @@ Per realizzare questi vettori moltiplica il vettore embedding per una serie di m
 
 Questi vettori ci servono per poter confrontare le parole dell'input per capire dove porre l'attenzione per fare ciò prendiamo ogni vettore calcolato q quindi uno per ogni parola e lo moltiplichiamo per tutti i vettori k così da ottenere uno scalare. Notiamo che la moltiplicazione tra ad esempio $q_1$ e $k_1$ produce un numero più altro rispetto alla moltiplicazione di  $q_1$ e $k_2$ questo perché i vettori sono più simili. A esito li to per capire a quale parola dare attenzione quando analizziamo l'input 1 non confronta direttamente lo scalare appena calcolato ma lo normalizza andando a dividerlo per la radice della lunghezza del vettore chiave una volta fatto applichiamo la soft max che ci restituisce una distribuzione di probabilità quindi in questo caso 2 numeri compresi tra 0 e 1 che ci dice con quale probabilità il transformer porrà attenzione sulla parola 1 e sulla parola 2 quando si valuta la parola 1. Questa probabilità viene usata per moltiplicare il vettore v corrispondere. Fatto ciò andiamo a sommare i vettori ottenuti.
 
-![Image](assets/IMG_3.png)
+![alt text](https://github.com/AlbertoCampini/RNDL/blob/main/assets/IMG_3.png?raw=true)
 
 
 Questa self attention si può tradurre con interpretazione matriciale per far si di eseguire tutti i passaggi in un colpo solo invece che moltiplicare vettori e matrici ma matrici e matrici.
 
-![Image](assets/IMG_4.png)
-![Image](assets/IMG_5.png)
+![alt text](https://github.com/AlbertoCampini/RNDL/blob/main/assets/IMG_4.png?raw=true)
+![alt text](https://github.com/AlbertoCampini/RNDL/blob/main/assets/IMG_5.png?raw=true)
 
 
 Si possono calcolare più attention parallelamente ognuna detta **attention head** possiede le tre matrici W citate precedentemente e produrrà risultati differenti questo meccanismo si utilizza per rendere il modello più potente. 
@@ -784,7 +785,7 @@ Si possono calcolare più attention parallelamente ognuna detta **attention head
 La domanda che ci si pone ora è dato che il risultato dell layer di self attention deve essere processato da un feed forward come facciamo a gestire più attention head contemporaneamente?
 Per gestire un multi head andiamo inizialmente a concatenare tutti i vettori $z_i$ restituiti dal self attention layer a questo punto creiamo una matrice W output che porta il nostro array concatenato alla dimensione che si aspetta il feed forward così da poter essere processato 
 
-![Image](assets/IMG_6.png)
+![alt text](https://github.com/AlbertoCampini/RNDL/blob/main/assets/IMG_6.png?raw=true)
 
 In tutto questo per c'è un dettaglio, il transformer non riesce a distinguere la posizione delle parole, infatti se negli esempi sopra avessimo invertito i token iniziali il risultato finale sarebbe stato il medesimo. Bisogna quindi trovare un modo per dire all encoder la posizione della parola che analizza. Per fare questo si una il **positional embedding** questo vettore viene sommato al vettore della parola così da ottenere sia la represent azione semantica che la posizionale 
 
